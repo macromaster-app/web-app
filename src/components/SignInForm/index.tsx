@@ -1,6 +1,7 @@
 import React from 'react'
 import UserAuthForm from '../UserAuthForm'
 import Link from 'next/link'
+import ThemeToggle from '../ui/ThemeToggle'
 
 const SignInForm = () => {
   return (

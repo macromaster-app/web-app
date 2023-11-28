@@ -1,18 +1,7 @@
-"use client"
+"use server"
 
-import { format } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react"
-
-import { Button } from "@/components/ui/button"
-import { Calendar } from "@/components/ui/calendar"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-import { cn } from "@/lib/utils"
-import { useRouter } from "next/navigation"
-import { revalidatePath } from "next/cache"
+import CalendarPagination from "./CalendarPagination";
+import CarouselPagination from "./CarouselPagination";
 
 type SearchParams = {
   day?: string;
@@ -21,64 +10,31 @@ type SearchParams = {
 };
 
 const DatePicker = (searchParams: SearchParams) => {
-  const router = useRouter()
 
   const transformPropsDate = () => {
-    if (searchParams) {
-      const day = Number(searchParams.day)
-      const month = Number(searchParams.month)
-      const year = Number(searchParams.year)
-      console.log("DAY: ", day, "MONTH: ", month, "YEAR: ", year)
-      return new Date(year, month, day) as Date | number;
-    } else {
-      const dayToday = new Date().getDate()
-      const monthToday = new Date().getMonth();
-      const yearToday = new Date().getFullYear()
-      const today = new Date(yearToday, monthToday, dayToday)
-      return today as Date | number;
-    }
-  }
+    const currentDate = new Date();
+    const { day = currentDate.getDate().toString(), month = currentDate.getMonth().toString(), year = currentDate.getFullYear().toString() } = searchParams || {};
+    
+    const parsedDay = parseInt(day, 10);
+    const parsedMonth = parseInt(month, 10);
+    const parsedYear = parseInt(year, 10);
 
-  const setPickedDate = (date: Date | undefined) => {
-    if (date) {
-      const day = date.getDate()
-      const month = date.getMonth() // Months indexed from 0 to 11
-      const year = date.getFullYear()
-      router.push(`?day=${day}&month=${month}&year=${year}`);
-      // window.location.href = `?day=${day}&month=${month}&year=${year}`
-    }
-  }
+    const pickedDate = new Date(parsedYear, parsedMonth, parsedDay);
+    const daysInMonth = new Date(parsedYear, parsedMonth + 1, 0).getDate();
 
+    return { pickedDate, daysInMonth, day: parsedDay };
+  };
   transformPropsDate()
-  const pickedDate = transformPropsDate()
-  console.log("PICKED DATE: ", pickedDate.toString())
+  const { pickedDate, daysInMonth, day } = transformPropsDate();
 
   return (
-    <div>
-      <h1></h1>
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button
-            variant={"outline"}
-            className={cn(
-              "w-[280px] justify-start text-left font-normal",
-              !pickedDate && "text-muted-foreground"
-            )}
-          >
-            <CalendarIcon className="mr-2 h-4 w-4" />
-            {pickedDate ? format(pickedDate, "PPP") : 'Select a date'}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-auto p-0">
-          <Calendar
-            mode="single"
-            selected={pickedDate as Date | undefined}
-            onSelect={setPickedDate}
-            initialFocus
-          />
-        </PopoverContent>
-      </Popover>
-      {/* <Pagination /> */}
+    <div className="flex gap-4 justify-center items-center">
+      <CalendarPagination pickedDate={pickedDate} />
+      <CarouselPagination 
+        daysInMonth={daysInMonth} 
+        pickedDate={pickedDate}
+        day={day}
+      />
     </div>
   )
 }

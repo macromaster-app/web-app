@@ -1,7 +1,5 @@
 'use server';
 
-import React from 'react';
-import { revalidatePath } from 'next/cache';
 import DatePicker from '@/components/DatePicker';
 
 export type PageProps = {
@@ -25,21 +23,25 @@ export const getDefaultPageParams = () => {
   return defaultPageParams;
 }
 
-const fetchFeed = async (date = new Date()) => {
-	'use server';
+const fetchFeed = async (day: string): Promise<any> => {
+  'use server'
+  try {
+    const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${day}`);
+    
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data for day ${day}`);
+    }
 
-  // TODO - fetch meals from database
-
-  const results = "meals"
-
-	revalidatePath('/');
-
-	return {
-		data: results,
-	};
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  }
 };
 
 const Tracker = async (props: PageProps) => {
+  const feed = await fetchFeed(props.searchParams?.day || getDefaultPageParams().day);
   const searchParams = {
     day: props.searchParams?.day || getDefaultPageParams().day,
     month: props.searchParams?.month || getDefaultPageParams().month,
@@ -49,6 +51,10 @@ const Tracker = async (props: PageProps) => {
   return (
     <div className="space-y-6 p-6">
       <DatePicker {...searchParams} />
+      <div>
+        Data:
+        {feed.body}
+      </div>
     </div>
   );
 };

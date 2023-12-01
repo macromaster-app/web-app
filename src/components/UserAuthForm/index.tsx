@@ -60,7 +60,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         disabled={isLoading}
         onClick={() => {
           signIn("google", {
-            callbackUrl: `${window.location.origin}/userpage }`,
+            callbackUrl: `${window.location.origin}/userpage`,
           });
         }}
       >

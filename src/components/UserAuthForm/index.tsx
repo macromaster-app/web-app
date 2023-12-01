@@ -59,7 +59,9 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         type="button"
         disabled={isLoading}
         onClick={() => {
-          signIn("google", { callbackUrl: "http://localhost:3000/userpage" });
+          signIn("google", {
+            callbackUrl: `${window.location.origin}/userpage }`,
+          });
         }}
       >
         {isLoading ? (

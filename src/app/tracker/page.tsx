@@ -13,7 +13,7 @@ export type PageProps = {
 
 export type FetchFeedType = typeof fetchFeed;
 
-export const getDefaultPageParams = () => {
+const getDefaultPageParams = () => {
   const currentDate = new Date();
   const defaultPageParams = {
       day: currentDate.getDate().toString(),

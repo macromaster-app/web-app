@@ -1,4 +1,5 @@
-export interface MacroNutrient {
-    name: string;
-    amount: number;
+export interface MacroNutrients {
+    protein: number;
+    carbohydrates: number;
+    fat: number;
 }

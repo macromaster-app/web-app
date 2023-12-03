@@ -1,66 +1,52 @@
+import { MacroNutrients } from '@/app/interfaces/macronutrient.interface';
+import { Meal } from '@/app/interfaces/meal.interface';
 import { MealName } from '@/app/types/mealname';
-import { MealCategory } from '@/app/interfaces/mealcategory.interface';
-import MealInput from './MealInput';
 import Meals from './Meals';
-import { MacroNutrient } from '@/app/interfaces/macronutrient.interface';
 
-type MealsWithMacro = Record<MealName, MealCategory>;
+type MealsWithMacro = Record<MealName, Meal[]>;
 
-const macro: MacroNutrient[] = [
-  { name: 'Protein', amount: 120 },
-  { name: 'Carbohydrates', amount: 400 },
-  { name: 'Fat', amount: 80 },
-]
+const macro: MacroNutrients = {
+  protein: 120,
+  carbohydrates: 400,
+  fat: 80,
+};
+
+const macro2: MacroNutrients = {
+  protein: 33,
+  carbohydrates: 20,
+  fat: 15
+}
 
 const mealsWithMacro: MealsWithMacro = {
-  'Breakfast': {
-    meals: [
+  'Breakfast': [
+    {
+      id: '1',
+      name: 'Chicken',
+      macroNutrients: macro,
+    },
+  ],
+  'Brunch':  [
         {
           id: '1',
-          name: 'Chicken',
-          macroNutrients: [
-            { name: 'Protein', amount: 120 },
-            { name: 'Carbohydrates', amount: 400 },
-            { name: 'Fat', amount: 80 },
-          ],
+          name: 'smol chicken',
+          macroNutrients: macro2,
         },
-      ],
-  },
-  'Brunch': {
-    meals: [
         {
           id: '1',
-          name: 'Chicken',
-          macroNutrients: [
-            { name: 'Protein', amount: 120 },
-            { name: 'Carbohydrates', amount: 400 },
-            { name: 'Fat', amount: 80 },
-          ],
+          name: 'different smol chicken',
+          macroNutrients: macro2,
         },
       ],
-  },
-  'Lunch': {
-    meals: [],
-  },
-  'Snack': {
-    meals: [],
-  },
-  'Dinner': {
-    meals: [],
-  },
+  'Lunch': [],
+  'Snack': [],
+  'Dinner': [],
 };
 
 const MealList = () => {
     return (
         <div className='flex w-full h-screen justify-center items-center'>
             <div className='flex justify-center items-center w-[25%]'>
-                <ul className='flex flex-col w-full gap-4'>
-                    {Object.keys(mealsWithMacro).map((mealName: string) => (
-                        <li key={mealName}>
-                            <Meals mealName={mealName as MealName} meals={mealsWithMacro[mealName as MealName].meals} macro={macro} />
-                        </li>
-                    ))}
-                </ul>
+                <Meals meals={mealsWithMacro} />
             </div>
         </div>
     );

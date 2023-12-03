@@ -1,4 +1,4 @@
-import { MacroNutrients } from '@/app/interfaces/macronutrient.interface'
+import { MacroNutrients } from '@/interfaces/macronutrient.interface'
 import { cn } from '@/lib/utils'
 
 type AccordionMacroInfoProps = {

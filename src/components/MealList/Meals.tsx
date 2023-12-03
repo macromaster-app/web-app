@@ -1,8 +1,8 @@
 'use client'
 
-import { MacroNutrients } from '@/app/interfaces/macronutrient.interface'
-import { Meal } from '@/app/interfaces/meal.interface'
-import { MealsWithMacro } from '@/app/types/mealswithmacro'
+import { MacroNutrients } from '@/interfaces/macronutrient.interface'
+import { Meal } from '@/interfaces/meal.interface'
+import { MealsWithMacro } from '@/types/mealswithmacro'
 import { Accordion, AccordionItem } from '@nextui-org/accordion'
 import AccordionMacroInfo from './AccordionMacroInfo'
 import MealsList from './MealsList'

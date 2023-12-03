@@ -1,6 +1,6 @@
-import { MacroNutrients } from '@/app/interfaces/macronutrient.interface';
-import { Meal } from '@/app/interfaces/meal.interface';
-import { MealName } from '@/app/types/mealname';
+import { MacroNutrients } from '@/interfaces/macronutrient.interface';
+import { Meal } from '@/interfaces/meal.interface';
+import { MealName } from '@/types/mealname';
 import Meals from './Meals';
 
 type MealsWithMacro = Record<MealName, Meal[]>;

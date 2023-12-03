@@ -1,4 +1,4 @@
-import { Meal } from '@/app/interfaces/meal.interface'
+import { Meal } from '@/interfaces/meal.interface'
 
 type MealsListProps = {
     meals: Meal[]

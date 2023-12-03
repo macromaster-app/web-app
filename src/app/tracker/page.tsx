@@ -1,5 +1,3 @@
-'use server';
-
 import DatePicker from '@/components/DatePicker';
 
 export type PageProps = {

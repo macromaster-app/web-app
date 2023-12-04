@@ -1,41 +1,41 @@
-"use client"
-
-import { cn } from "@/lib/utils"
-import { HTMLAttributes, SyntheticEvent, useState } from "react"
-import { Icons } from "../Icons"
-import Login from "../Login"
-import Register from "../Register"
-import { Button } from "../ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
+"use client";
+import { cn } from "@/lib/utils";
+import { HTMLAttributes, SyntheticEvent, useState } from "react";
+import { Icons } from "../Icons";
+import Login from "../Login";
+import Register from "../Register";
+import { Button } from "../ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import { signIn } from "next-auth/react";
 
 interface UserAuthFormProps extends HTMLAttributes<HTMLDivElement> {}
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   async function onSubmit(event: SyntheticEvent) {
-    event.preventDefault()
-    setIsLoading(true)
+    event.preventDefault();
+    setIsLoading(true);
 
     setTimeout(() => {
-      setIsLoading(false)
-    }, 3000)
+      setIsLoading(false);
+    }, 3000);
   }
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
       <Tabs defaultValue="register" className="w-[400px]">
         <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="login">Log In</TabsTrigger>
-            <TabsTrigger value="register">Register</TabsTrigger>
+          <TabsTrigger value="login">Log In</TabsTrigger>
+          <TabsTrigger value="register">Register</TabsTrigger>
         </TabsList>
         <TabsContent value="login">
-            <Login />
+          <Login />
         </TabsContent>
         <TabsContent value="register">
-            <Register />
+          <Register />
         </TabsContent>
-        </Tabs>
+      </Tabs>
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />
@@ -54,8 +54,25 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         )}{" "}
         Github
       </Button>
+      <Button
+        variant="outline"
+        type="button"
+        disabled={isLoading}
+        onClick={() => {
+          signIn("google", {
+            callbackUrl: `${window.location.origin}/userpage`,
+          });
+        }}
+      >
+        {isLoading ? (
+          <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+        ) : (
+          <Icons.google className="mr-2 h-4 w-4" />
+        )}{" "}
+        Google
+      </Button>
     </div>
-  )
+  );
 }
 
-export default UserAuthForm
+export default UserAuthForm;

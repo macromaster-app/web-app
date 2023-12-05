@@ -1,6 +1,5 @@
-'use server';
-
 import DatePicker from '@/components/DatePicker';
+import UserGreetings from '@/components/UserGreetings';
 
 export type PageProps = {
   params: { [key: string]: string | string[] | undefined };
@@ -49,7 +48,8 @@ const Tracker = async (props: PageProps) => {
   } 
 
   return (
-    <div className="space-y-6 p-6">
+    <div className="flex flex-col items-start space-y-6 p-6">
+      <UserGreetings />
       <DatePicker {...searchParams} />
       <div>
         Data:

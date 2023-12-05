@@ -2,7 +2,7 @@ import AuthenticationPage from './welcome/page'
 
 export default function Home() {
   return (
-    <main className="flex-1 flex-col items-center justify-center gap-6">
+    <main className="flex-1 flex-col items-center justify-center gap-6 color-text">
       <AuthenticationPage />
     </main>
   )

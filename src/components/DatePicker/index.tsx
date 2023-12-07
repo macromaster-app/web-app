@@ -1,5 +1,3 @@
-"use server"
-
 import CalendarPagination from "./CalendarPagination";
 import CarouselPagination from "./CarouselPagination";
 

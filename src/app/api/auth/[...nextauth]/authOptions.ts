@@ -8,4 +8,7 @@ export const authOptions = {
     }),
   ],
   pages: { signIn: "/signin" },
+  session: {
+    maxAge: 60 * 30,
+  },
 };

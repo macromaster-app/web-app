@@ -1,5 +1,6 @@
 import DatePicker from '@/components/DatePicker';
 import UserGreetings from '@/components/UserGreetings';
+import { serverClient } from '../_trpc/serverClient';
 
 export type PageProps = {
   params: { [key: string]: string | string[] | undefined };
@@ -40,6 +41,7 @@ const fetchFeed = async (day: string): Promise<any> => {
 };
 
 const Tracker = async (props: PageProps) => {
+  const todos = await serverClient.getTodos();
   const feed = await fetchFeed(props.searchParams?.day || getDefaultPageParams().day);
   const searchParams = {
     day: props.searchParams?.day || getDefaultPageParams().day,
@@ -54,6 +56,14 @@ const Tracker = async (props: PageProps) => {
       <div>
         Data:
         {feed.body}
+      </div>
+      <div>
+        <h1>TODOS:</h1>
+        <ul>
+          {todos.map((todo) => (
+            <li key={todo}>{todo}</li>
+          ))}
+        </ul>
       </div>
     </div>
   );

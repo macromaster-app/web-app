@@ -5,6 +5,7 @@ import Provider from "@/components/Provider";
 import SessionProvider from "@/components/SessionProvider";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/dist/server/api-utils";
+import TRPCProvider from "./_trpc/TRPCProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,7 +25,11 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <SessionProvider session={session}>
-          <Provider>{children}</Provider>
+            <Provider>
+              <TRPCProvider>
+              {children}
+              </TRPCProvider>
+            </Provider>
         </SessionProvider>
       </body>
     </html>

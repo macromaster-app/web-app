@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model recipes {
+  name        String   @db.VarChar(64)
+  id          Int      @id
+  submitted   DateTime @db.Date
+  tags        String[]
+  nutrition   String[]
+  steps       String[]
+  description String?  @db.VarChar(1623)
+  ingredients String[]
+  rating      Decimal  @db.Decimal
+  count       Int
+}
+
+// test vercel data
+model users {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  image     String
+  createdAt DateTime @default(now())
+}

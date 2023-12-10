@@ -4,6 +4,9 @@ import { Button } from "@/components/ui/button";
 
 export default function ProtectedRoute() {
   const { data: session, status } = useSession();
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
   if (status === "authenticated") {
     return (
       <div>
@@ -12,7 +15,7 @@ export default function ProtectedRoute() {
         You will only see this if you are authenticated.
         <Button
           type="submit"
-          onClick={() => signOut({ callbackUrl: "localhost:3000" })}
+          onClick={() => signOut({ callbackUrl: window.location.origin })}
         >
           Sign Out
         </Button>

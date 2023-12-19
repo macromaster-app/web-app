@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model recipes {
+  recipe_id   Int      @id @default(autoincrement())
+  title       String   @db.VarChar(255)
+  submitted   DateTime @db.Date
+  description String   @db.VarChar(1623)
+}
+
+model tags {
+  id  Int    @id(map: "PK__tags__3213E83F711DF05C")
+  tag String @unique(map: "UQ__tags__DC101C017678B4C9") @db.VarChar(255)
+}

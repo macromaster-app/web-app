@@ -25,7 +25,8 @@ const getDefaultPageParams = () => {
 const fetchFeed = async (day: string): Promise<any> => {
   'use server'
   try {
-    const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${day}`);
+    // const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${day}`);
+    const response = await fetch('/api/recipes')
     
     if (!response.ok) {
       throw new Error(`Failed to fetch data for day ${day}`);

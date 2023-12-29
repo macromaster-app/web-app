@@ -5,7 +5,6 @@ import { useTheme } from "next-themes";
 import { Button } from "../ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Moon, Sun, Menu } from "lucide-react";
-import ThemeToggle from "../ui/ThemeToggle";
 import { Avatar } from "@nextui-org/react";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";

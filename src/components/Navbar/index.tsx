@@ -68,7 +68,7 @@ export const Navbar = () => {
 
           <Image src="/favicon.ico" alt="macromaster" width={28} height={28} />
 
-          <h1 className="text-xl font-bold">MacroMaster</h1>
+          <h1 className="text-xl font-bold ml-4 ">MacroMaster</h1>
         </div>
         <nav className="mx-6  items-center space-x-4 lg:space-x-6 hidden md:block">
           {routes.map((route, i) => (

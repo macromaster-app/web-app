@@ -76,7 +76,7 @@ export const Navbar = () => {
             <Link
               key={i}
               href={route.href}
-              className="text-sm font-medium transition-colors"
+              className="text-base font-medium transition-colors"
             >
               {route.label}
             </Link>

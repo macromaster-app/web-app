@@ -1,6 +1,7 @@
-import DatePicker from '@/components/DatePicker';
-import UserGreetings from '@/components/UserGreetings';
-import { serverClient } from '../_trpc/serverClient';
+import DatePicker from "@/components/DatePicker";
+import UserGreetings from "@/components/UserGreetings";
+import { serverClient } from "../_trpc/serverClient";
+import { Navbar } from "@/components/Navbar";
 
 export type PageProps = {
   params: { [key: string]: string | string[] | undefined };
@@ -16,18 +17,20 @@ export type FetchFeedType = typeof fetchFeed;
 const getDefaultPageParams = () => {
   const currentDate = new Date();
   const defaultPageParams = {
-      day: currentDate.getDate().toString(),
-      month: (currentDate.getMonth()).toString(),
-      year: currentDate.getFullYear().toString(),
+    day: currentDate.getDate().toString(),
+    month: currentDate.getMonth().toString(),
+    year: currentDate.getFullYear().toString(),
   };
   return defaultPageParams;
-}
+};
 
 const fetchFeed = async (day: string): Promise<any> => {
-  'use server'
+  "use server";
   try {
-    const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${day}`);
-    
+    const response = await fetch(
+      `https://jsonplaceholder.typicode.com/posts/${day}`
+    );
+
     if (!response.ok) {
       throw new Error(`Failed to fetch data for day ${day}`);
     }
@@ -42,30 +45,35 @@ const fetchFeed = async (day: string): Promise<any> => {
 
 const Tracker = async (props: PageProps) => {
   const todos = await serverClient.getTodos();
-  const feed = await fetchFeed(props.searchParams?.day || getDefaultPageParams().day);
+  const feed = await fetchFeed(
+    props.searchParams?.day || getDefaultPageParams().day
+  );
   const searchParams = {
     day: props.searchParams?.day || getDefaultPageParams().day,
     month: props.searchParams?.month || getDefaultPageParams().month,
     year: props.searchParams?.year || getDefaultPageParams().year,
-  } 
+  };
 
   return (
-    <div className="flex flex-col items-start space-y-6 p-6">
-      <UserGreetings />
-      <DatePicker {...searchParams} />
-      <div>
-        Data:
-        {feed.body}
+    <>
+      <Navbar />
+      <div className="flex flex-col items-start space-y-6 p-6">
+        <UserGreetings />
+        <DatePicker {...searchParams} />
+        <div>
+          Data:
+          {feed.body}
+        </div>
+        <div>
+          <h1>TODOS:</h1>
+          <ul>
+            {todos.map((todo) => (
+              <li key={todo}>{todo}</li>
+            ))}
+          </ul>
+        </div>
       </div>
-      <div>
-        <h1>TODOS:</h1>
-        <ul>
-          {todos.map((todo) => (
-            <li key={todo}>{todo}</li>
-          ))}
-        </ul>
-      </div>
-    </div>
+    </>
   );
 };
 

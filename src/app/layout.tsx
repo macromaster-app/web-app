@@ -11,7 +11,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "MacroMaster",
-  description: "Achieve your fitness goals effortlessly, ensuring a personalized and enjoyable path to a healthier lifestyle.",
+  description:
+    "Achieve your fitness goals effortlessly, ensuring a personalized and enjoyable path to a healthier lifestyle.",
 };
 
 export default async function RootLayout({
@@ -22,15 +23,13 @@ export default async function RootLayout({
   const session = await getServerSession();
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <SessionProvider session={session}>
-            <Provider>
-              <TRPCProvider>
-              {children}
-              </TRPCProvider>
-            </Provider>
-        </SessionProvider>
+        <Provider>
+          <SessionProvider session={session}>
+            <TRPCProvider>{children}</TRPCProvider>
+          </SessionProvider>
+        </Provider>
       </body>
     </html>
   );

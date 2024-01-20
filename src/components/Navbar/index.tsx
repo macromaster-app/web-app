@@ -99,8 +99,10 @@ export const Navbar = () => {
               <Avatar src={session?.data?.user?.image || ""} size="md" />
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              {/* <DropdownMenuLabel>My Account</DropdownMenuLabel> */}
-              {/* <DropdownMenuSeparator /> */}
+              <DropdownMenuLabel>
+                <Link href="/settings">Settings</Link>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
               <DropdownMenuItem>
                 <button
                   onClick={() =>

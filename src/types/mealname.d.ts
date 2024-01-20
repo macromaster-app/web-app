@@ -1,0 +1,1 @@
+export type MealName = 'Breakfast' | 'Brunch' | 'Lunch' | 'Snack' | 'Dinner';

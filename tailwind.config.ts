@@ -53,6 +53,8 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        protein: "#3F7D20",
+        carbs: "#177E89",
         text: '#0C0A09',
       },
       borderRadius: {

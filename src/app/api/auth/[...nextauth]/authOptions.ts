@@ -1,9 +1,10 @@
 import GoogleProvider from "next-auth/providers/google";
 import { DefaultSession, Session } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { PrismaClient } from "@prisma/client";
 import { JWT } from "next-auth/jwt";
 import { Account } from "next-auth";
+import prisma from "@/server/db/prisma";
+import { SessionStrategy } from "next-auth";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
@@ -20,6 +21,7 @@ declare module "next-auth/jwt" {
 }
 
 export const authOptions = {
+  adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -28,6 +30,7 @@ export const authOptions = {
   ],
   pages: { signIn: "/signin" },
   session: {
+    strategy: "jwt" as SessionStrategy,
     maxAge: 60 * 30,
   },
   callbacks: {

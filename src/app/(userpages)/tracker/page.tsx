@@ -21,9 +21,10 @@ const getDefaultPageParams = () => {
 		year: currentDate.getFullYear().toString(),
 	};
 	return defaultPageParams;
-};
 
 const Tracker = async (props: PageProps) => {
+	const todos = await serverClient.getTodos();
+	const feed = await fetchFeed(props.searchParams?.day || getDefaultPageParams().day);
 	const searchParams = {
 		day: props.searchParams?.day || getDefaultPageParams().day,
 		month: props.searchParams?.month || getDefaultPageParams().month,

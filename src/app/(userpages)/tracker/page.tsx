@@ -1,8 +1,6 @@
 import DatePicker from '@/components/DatePicker';
-import UserGreetings from '@/components/UserGreetings';
-import { serverClient } from '../../_trpc/serverClient';
-import { Navbar } from '@/components/Navbar';
 import MealList from '@/components/MealList';
+import UserGreetings from '@/components/UserGreetings';
 
 export type PageProps = {
 	params: { [key: string]: string | string[] | undefined };
@@ -21,10 +19,9 @@ const getDefaultPageParams = () => {
 		year: currentDate.getFullYear().toString(),
 	};
 	return defaultPageParams;
+}
 
 const Tracker = async (props: PageProps) => {
-	const todos = await serverClient.getTodos();
-	const feed = await fetchFeed(props.searchParams?.day || getDefaultPageParams().day);
 	const searchParams = {
 		day: props.searchParams?.day || getDefaultPageParams().day,
 		month: props.searchParams?.month || getDefaultPageParams().month,
@@ -33,7 +30,6 @@ const Tracker = async (props: PageProps) => {
 
 	return (
 		<>
-			<Navbar />
 			<div className='flex items-start m-6'>
 				<div className='flex flex-col items-start space-y-6'>
 					<UserGreetings />

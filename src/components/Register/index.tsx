@@ -47,7 +47,6 @@ const Register = () => {
       ...values,
       callbackUrl: "/tracker",
     });
-    console.log(values);
   }
   return (
     <div className="flex items-center justify-center">

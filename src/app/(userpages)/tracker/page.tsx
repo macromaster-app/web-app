@@ -1,6 +1,6 @@
 import DatePicker from '@/components/DatePicker';
 import UserGreetings from '@/components/UserGreetings';
-import { serverClient } from '../_trpc/serverClient';
+import { serverClient } from '../../_trpc/serverClient';
 import { Navbar } from '@/components/Navbar';
 import MealList from '@/components/MealList';
 
@@ -13,8 +13,6 @@ export type PageProps = {
 	};
 };
 
-export type FetchFeedType = typeof fetchFeed;
-
 const getDefaultPageParams = () => {
 	const currentDate = new Date();
 	const defaultPageParams = {
@@ -23,23 +21,6 @@ const getDefaultPageParams = () => {
 		year: currentDate.getFullYear().toString(),
 	};
 	return defaultPageParams;
-};
-
-const fetchFeed = async (day: string): Promise<any> => {
-	'use server';
-	try {
-		const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${day}`);
-
-		if (!response.ok) {
-			throw new Error(`Failed to fetch data for day ${day}`);
-		}
-
-		const json = await response.json();
-		return json;
-	} catch (error) {
-		console.error('Error fetching data:', error);
-		throw error;
-	}
 };
 
 const Tracker = async (props: PageProps) => {

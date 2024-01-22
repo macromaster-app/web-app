@@ -6,7 +6,7 @@ import { Button } from "../ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Moon, Sun, Menu } from "lucide-react";
 import { Avatar } from "@nextui-org/react";
-import { signOut, useSession } from "next-auth/react";
+// import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import {
   DropdownMenu,
@@ -19,11 +19,15 @@ import {
 
 export const Navbar = () => {
   const { theme, setTheme } = useTheme();
-  const session = useSession();
+  // const session = useSession();
   const routes = [
     {
       href: "/tracker",
       label: "Tracker",
+    },
+    {
+      href: "/meal-finder",
+      label: "Meal Finder",
     },
   ];
 
@@ -96,16 +100,18 @@ export const Navbar = () => {
 
           <DropdownMenu>
             <DropdownMenuTrigger>
-              <Avatar src={session?.data?.user?.image || ""} size="md" />
+              {/* <Avatar src={session?.data?.user?.image || ""} size="md" /> */}
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              {/* <DropdownMenuLabel>My Account</DropdownMenuLabel> */}
-              {/* <DropdownMenuSeparator /> */}
+              <DropdownMenuLabel>
+                <Link href="/settings">Settings</Link>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
               <DropdownMenuItem>
                 <button
-                  onClick={() =>
-                    signOut({ callbackUrl: window.location.origin })
-                  }
+                // onClick={() =>
+                //   signOut({ callbackUrl: window.location.origin })
+                // }
                 >
                   Logout
                 </button>

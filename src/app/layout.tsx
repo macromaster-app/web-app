@@ -12,6 +12,9 @@ export const metadata: Metadata = {
 	title: 'MacroMaster',
 	description:
 		'Achieve your fitness goals effortlessly, ensuring a personalized and enjoyable path to a healthier lifestyle.',
+	title: 'MacroMaster',
+	description:
+		'Achieve your fitness goals effortlessly, ensuring a personalized and enjoyable path to a healthier lifestyle.',
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

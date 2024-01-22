@@ -62,7 +62,7 @@ export const authOptions = {
       credentials: {
         email: { label: "Email", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password" },
-        name: { label: "Name", type: "text", placeholder: "John Smith" },
+        username: { label: "Name", type: "text", placeholder: "John Smith" },
       },
       async authorize(credentials, req) {
         // find if thus email is already registered
@@ -78,14 +78,17 @@ export const authOptions = {
         const saltRounds = 10;
         const hash = await bcrypt.hash(credentials!.password, saltRounds);
 
+        console.log("hash", hash);
+
         const newUser = await prisma.user.create({
           data: {
             email: credentials?.email,
-            name: credentials?.name,
+            name: credentials?.username,
             password: hash,
           },
         });
-        console.log(newUser);
+        console.log("newUser", newUser);
+        console.log("aaa");
 
         if (newUser) {
           // Any object returned will be saved in `user` property of the JWT

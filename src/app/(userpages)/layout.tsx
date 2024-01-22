@@ -1,4 +1,5 @@
 import { Navbar } from "@/components/Navbar";
+import { Toaster } from "@/components/ui/toaster";
 
 export default function UserPagesLayout({
   children, // will be a page or nested layout
@@ -9,6 +10,7 @@ export default function UserPagesLayout({
     <>
       <Navbar />
       {children}
+      <Toaster />
     </>
   );
 }

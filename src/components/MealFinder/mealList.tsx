@@ -3,11 +3,9 @@ import React from "react";
 const MealFinderList = ({ meals }: { meals: any }) => {
   return (
     <div className="mt-8">
-      <h2 className="text-2xl font-bold  mb-4">Your meal ideas</h2>
+      <h2 className="text-2xl font-bold mb-4">Your meal ideas</h2>
       {meals.length === 0 ? (
-        <p className="text-gray-600">
-          No meals found. Try adjusting your search.
-        </p>
+        <p className="">No meals found. Try adjusting your search.</p>
       ) : (
         <ul className="space-y-4">
           {meals.map((meal: any) => (

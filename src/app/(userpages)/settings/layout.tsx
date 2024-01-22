@@ -48,7 +48,7 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
         <Separator className="my-6" />
         <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
           <aside className="-mx-4 lg:w-1/5 flex flex-col">
-            {provider == "credentials" ? (
+            {provider === "register" || provider === "signin" ? (
               <SidebarNav items={sidebarNavItems} />
             ) : (
               <SidebarNav items={[sidebarNavItems[0], sidebarNavItems[3]]} />

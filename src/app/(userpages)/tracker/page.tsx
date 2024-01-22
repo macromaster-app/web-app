@@ -1,8 +1,7 @@
 import DatePicker from '@/components/DatePicker';
 import UserGreetings from '@/components/UserGreetings';
-import { serverClient } from '../_trpc/serverClient';
+import { serverClient } from '../../_trpc/serverClient';
 import { Navbar } from '@/components/Navbar';
-import Preferences from '@/components/Preferences';
 
 export type PageProps = {
 	params: { [key: string]: string | string[] | undefined };
@@ -55,10 +54,7 @@ const Tracker = async (props: PageProps) => {
 		<>
 			<Navbar />
 			<div className='flex flex-col items-start space-y-6 p-6'>
-				<div className='flex flex-col items-start gap-4'>
-					<UserGreetings />
-					<Preferences />
-				</div>
+				<UserGreetings />
 				<DatePicker {...searchParams} />
 				<div>
 					Data:

@@ -3,29 +3,97 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("POSTGRES_PRISMA_URL")
-  directUrl = env("POSTGRES_URL_NON_POOLING")
+  provider          = "sqlserver"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model ingredients {
+  ingr_id   Int     @id(map: "PK__ingredie__375337002925E31B")
+  ingr_name String? @db.VarChar(255)
+}
+
+model recipe_ingredients {
+  recipe_id Int
+  ingr_id   Int
+
+  @@id([recipe_id, ingr_id], map: "PK__recipe_i__2604DEEB5A04BDDA")
+}
+
+model recipe_ratings {
+  recipe_id   Int    @id(map: "PK__recipe_r__3571ED9B959CA1C5")
+  rating      Float?
+  num_ratings Int?
+}
+
+model recipe_steps {
+  recipe_id   Int
+  step_number Int
+  step_text   String? @db.Text
+
+  @@id([recipe_id, step_number], map: "PK__recipe_s__863E418EE1E486FD")
+}
+
+model recipe_tags {
+  recipe_id Int
+  tag_id    Int
+
+  @@id([recipe_id, tag_id], map: "PK__recipe_t__415887B0080D5F31")
 }
 
 model recipes {
-  name        String   @db.VarChar(64)
-  id          Int      @id
-  submitted   DateTime @db.Date
-  tags        String[]
-  nutrition   String[]
-  steps       String[]
-  description String?  @db.VarChar(1623)
-  ingredients String[]
-  rating      Decimal  @db.Decimal
-  count       Int
+  recipe_id   Int       @id(map: "PK__recipes__3571ED9B5943296B")
+  name        String?   @db.VarChar(255)
+  submitted   DateTime? @db.Date
+  description String?   @db.Text
 }
 
-// test vercel data
-model users {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  image     String
-  createdAt DateTime @default(now())
+model tags {
+  tag_id   Int     @id(map: "PK__tags__4296A2B65813A579")
+  tag_name String? @db.VarChar(255)
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  accounts      Account[]
+  sessions      Session[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }

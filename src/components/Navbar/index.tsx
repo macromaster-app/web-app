@@ -22,11 +22,15 @@ import Preferences from '../Preferences';
 export const Navbar = () => {
 	const router = useRouter();
 	const { theme, setTheme } = useTheme();
-	const session = useSession();
+	// const session = useSession();
 	const routes = [
 		{
 			href: '/tracker',
 			label: 'Tracker',
+		},
+		{
+			href: '/meal-finder',
+			label: 'Meal Finder',
 		},
 	];
 

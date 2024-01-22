@@ -73,12 +73,8 @@ export const authOptions = {
 
         if (user) return null;
 
-        console.log("creating new user", credentials);
-
         const saltRounds = 10;
         const hash = await bcrypt.hash(credentials!.password, saltRounds);
-
-        console.log("hash", hash);
 
         const newUser = await prisma.user.create({
           data: {
@@ -87,8 +83,6 @@ export const authOptions = {
             password: hash,
           },
         });
-        console.log("newUser", newUser);
-        console.log("aaa");
 
         if (newUser) {
           // Any object returned will be saved in `user` property of the JWT
@@ -106,7 +100,7 @@ export const authOptions = {
     maxAge: 60 * 30,
   },
   callbacks: {
-    async jwt({ token, account }: { token: JWT; account: Account }) {
+    async jwt({ token, account }: { token: JWT; account: Account | null }) {
       if (account) {
         token.provider = account.provider;
         return token;
